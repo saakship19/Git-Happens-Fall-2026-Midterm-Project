@@ -108,3 +108,23 @@ def make_year_table(production, prices):
     by_year = by_year.sort_values("Year")
     return by_year
 
+
+def build_dataset():
+    """Build and save the 2 merged tables.
+
+    Input: none.
+    Output: none. Saves coffee_by_country.csv and coffee_by_year.csv.
+    """
+    prices = load_prices()
+    weather = load_weather()
+    production = load_production()
+
+    by_country = make_country_table(production, weather)
+    by_year = make_year_table(production, prices)
+
+    by_country.to_csv(COUNTRY_PATH, index=False)
+    by_year.to_csv(YEAR_PATH, index=False)
+
+
+if __name__ == "__main__":
+    build_dataset()
