@@ -94,5 +94,17 @@ def make_country_table(production, weather):
     by_country = by_country.sort_values(["Country", "Year"])
     return by_country
 
-    
+
+
+def make_year_table(production, prices):
+    """Add up the 5 countries each year and join prices.
+    Input: the production and prices tables.
+    Output: one row per year with production and prices.
+    """
+    amounts = ["Arabica_Production", "Robusta_Production", "Total_Production"]
+    by_year = production.groupby("Year", as_index = False)[amounts].sum()
+
+    by_year = by_year.merge(prices, on="Year", how="inner")
+    by_year = by_year.sort_values("Year")
+    return by_year
 
