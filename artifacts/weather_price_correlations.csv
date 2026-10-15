@@ -1,0 +1,5 @@
+Coffee price,Weather variable,Countries,Years with complete data,Correlation
+Arabica,Temperature,"Brazil, Colombia, Ethiopia, Indonesia, Vietnam",25,0.3020618134185307
+Robusta,Temperature,"Brazil, Indonesia, Vietnam",25,0.44557353192705706
+Arabica,Precipitation,"Brazil, Colombia, Ethiopia, Indonesia, Vietnam",25,0.4069203872200475
+Robusta,Precipitation,"Brazil, Indonesia, Vietnam",25,0.044198044778414804
