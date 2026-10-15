@@ -138,3 +138,44 @@ plt.savefig(
     bbox_inches="tight",
 )
 plt.close()
+
+# Temperature, precipitation, and Arabica price
+
+arabica_standardized[
+    ["Temperature", "Precipitation", "Arabica price"]
+].plot(
+    figsize=(10, 6),
+    color=["darkorange", "teal", "navy"],
+    xlabel="Year",
+    ylabel="Standard deviations from 2000–2024 mean",
+    title="Growing-region weather and Arabica price, 2000–2024",
+)
+
+plt.axhline(0, color="gray", linewidth=0.8)
+plt.tight_layout()
+plt.savefig(
+    "artifacts/weather_arabica_price.png",
+    bbox_inches="tight",
+)
+plt.close()
+
+
+# Temperature, precipitation, and Robusta price
+
+robusta_standardized[
+    ["Temperature", "Precipitation", "Robusta price"]
+].plot(
+    figsize=(10, 6),
+    color=["darkorange", "teal", "navy"],
+    xlabel="Year",
+    ylabel="Standard deviations from 2000–2024 mean",
+    title="Growing-region weather and Robusta price, 2000–2024",
+)
+
+plt.axhline(0, color="gray", linewidth=0.8)
+plt.tight_layout()
+plt.savefig(
+    "artifacts/weather_robusta_price.png",
+    bbox_inches="tight",
+)
+plt.close()
