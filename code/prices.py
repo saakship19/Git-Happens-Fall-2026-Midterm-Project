@@ -95,6 +95,14 @@ def build_price_files():
 	yearly[
 		["year", "robusta_cents_lb"]
 	].to_csv(ROBUSTA_CLEAN_FILE, index=False)
+	yearly["arabica_pct_change"] = (
+		yearly["arabica_cents_lb"].pct_change() * 100
+	)
+
+	yearly[
+		["year", "arabica_cents_lb", "arabica_pct_change"]
+	].to_csv(ARABICA_CLEAN_FILE, index=False)
+
 	yearly.to_csv(YEARLY_FILE, index=False)
 
 if __name__ == "__main__":
