@@ -9,6 +9,7 @@ ARABICA_PRODUCTION_PATH = os.path.join(CLEAN_DIR, "production_arabica_clean.csv"
 ROBUSTA_PRODUCTION_PATH = os.path.join(CLEAN_DIR, "production_robusta_clean.csv")
 RAIN_PATH = os.path.join(CLEAN_DIR, "precipitation_combined.csv")
 TEMP_PATH = os.path.join(CLEAN_DIR, "temperature_combined.csv")
+COMBINED_PATH = os.path.join(CLEAN_DIR, "coffee_combined.csv")
 
 START_YEAR = 2000
 END_YEAR = 2024
@@ -101,12 +102,23 @@ def make_year_table(production, prices):
     by_year = by_year.sort_values("Year")
     return by_year
 
+def make_combined_table(by_country, by_year):
+    """Add each year's coffee prices to every country's row.
+    Input: the country table and the year table.
+    Output: one row per country per year with production, weather and prices.
+    """
+    prices = by_year[["Year", "arabica_cents_lb", "robusta_cents_lb"]]
+
+    combined = by_country.merge(prices, on="Year", how="left")
+    combined = combined.sort_values(["Country", "Year"])
+    return combined
 
 def build_dataset():
-    """Build and save the 2 merged tables.
+    """Build and save the merged tables.
 
     Input: none.
-    Output: none. Saves coffee_by_country.csv and coffee_by_year.csv.
+    Output: none. Saves coffee_by_country.csv, coffee_by_year.csv
+    and coffee_combined.csv.
     """
     prices = load_prices()
     weather = load_weather()
@@ -114,9 +126,11 @@ def build_dataset():
 
     by_country = make_country_table(production, weather)
     by_year = make_year_table(production, prices)
+    combined = make_combined_table(by_country, by_year)
 
     by_country.to_csv(COUNTRY_PATH, index=False)
     by_year.to_csv(YEAR_PATH, index=False)
+    combined.to_csv(COMBINED_PATH, index=False)
 
 
 if __name__ == "__main__":
