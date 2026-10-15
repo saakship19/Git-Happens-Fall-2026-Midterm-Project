@@ -34,3 +34,64 @@ def load_price_file(file_path, source_column, output_column):
 	)
 
 	return data[["date", output_column]]
+
+def build_price_files():	
+	"""Create combined monthly prices and yearly average prices."""
+	arabica = load_price_file(
+		ARABICA_FILE,
+		"PCOFFOTMUSDM",
+		"arabica_cents_lb",
+	)
+	robusta = load_price_file(
+		ROBUSTA_FILE,
+		"PCOFFROBUSDM",
+		"robusta_cents_lb",
+	)
+
+	monthly = arabica.merge(
+		robusta,
+		on="date",
+		how="inner",
+		validate="one_to_one",
+	)
+
+	monthly["year"] = monthly["date"].dt.year
+	monthly["month"] = monthly["date"].dt.month
+
+	monthly = monthly[
+		[
+			"year",
+			"month",
+			"date",
+			"arabica_cents_lb",
+			"robusta_cents_lb",
+		]
+	].sort_values("date")
+
+	CLEAN_DIR.mkdir(parents=True, exist_ok=True)
+	monthly.to_csv(MONTHLY_FILE, index=False)
+
+	yearly = monthly.groupby("year", as_index=False).agg(
+		arabica_cents_lb=("arabica_cents_lb", "mean"),
+		robusta_cents_lb=("robusta_cents_lb", "mean"),
+		months=("month", "nunique"),
+	)
+
+	yearly = yearly[yearly["months"] == 12].drop(columns="months")
+	yearly["arabica_pct_change"] = (
+		yearly["arabica_cents_lb"].pct_change() * 100
+	)
+
+	yearly[
+		["year","arabica_cents_lb", "arabica_pct_change"]
+	].to_csv(ARABICA_CLEAN_FILE, index=False)
+
+	yearly[
+		["year", "robusta_cents_lb"]
+	].to_csv(ROBUSTA_CLEAN_FILE, index=False)
+	yearly.to_csv(YEARLY_FILE, index=False)
+
+if __name__ == "__main__":
+	build_price_files()
+
+
