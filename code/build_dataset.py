@@ -32,3 +32,37 @@ def load_prices():
     
     return prices
 
+
+def load_weather():
+    """Average each country's regions and add anomalies.
+	Input: none.
+    Output: one row per country per year with rain, temperature, and anomalies.
+    """
+    rain = pd.read_csv(RAIN_PATH, encoding="utf-8-sig")
+    temp = pd.read_csv(TEMP_PATH, encoding="utf-8-sig")
+
+    rain = rain.rename(columns={"country": "Country"})
+    temp = temp.rename(columns={"country": "Country"})
+
+    rain = rain.groupby(["Country", "Year"], as_index=False)[
+        "Average_Precipitation"
+    ].mean()
+    temp = temp.groupby(["Country", "Year"], as_index=False)[
+        "Annual_Average_Temperature"
+    ].mean()
+
+    weather = rain.merge(temp, on=["Country", "Year"])
+
+    after_start = weather["Year"] >= START_YEAR
+    before_end = weather["Year"] <= END_YEAR
+    weather = weather[after_start & before_end].copy()
+
+    rain_by_country = weather.groupby("Country")["Average_Precipitation"]
+    temp_by_country = weather.groupby("Country")["Annual_Average_Temperature"]
+    normal_rain = rain_by_country.transform("mean")
+    normal_temp = temp_by_country.transform("mean")
+
+    weather["Precipitation_Anomaly"] = weather["Average_Precipitation"] - normal_rain
+    weather["Temperature_Anomaly"] = weather["Annual_Average_Temperature"] - normal_temp
+    return weather
+
