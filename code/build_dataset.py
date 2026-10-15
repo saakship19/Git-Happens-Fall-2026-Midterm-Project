@@ -66,3 +66,24 @@ def load_weather():
     weather["Temperature_Anomaly"] = weather["Annual_Average_Temperature"] - normal_temp
     return weather
 
+
+def load_production():
+    """Combine Arabica and Robusta production and add the total.
+    Input: none.
+    Output: one row per country per year with production.
+    """
+    arabica = pd.read_csv(ARABICA_PRODUCTION_PATH, encoding="utf-8-sig")
+    robusta = pd.read_csv(ROBUSTA_PRODUCTION_PATH, encoding="utf-8-sig")
+
+    production = arabica.merge(robusta, on=["Country", "Year"])
+    production["Total_Production"] = (
+        production["Arabica_Production"] + production["Robusta_Production"]
+    )
+
+    after_start = production["Year"] >= START_YEAR
+    before_end = production["Year"] <= END_YEAR
+    return production[after_start & before_end]
+
+
+
+
