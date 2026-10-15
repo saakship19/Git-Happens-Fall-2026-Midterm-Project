@@ -179,3 +179,41 @@ plt.savefig(
     bbox_inches="tight",
 )
 plt.close()
+
+# Correlations shown in the plots
+
+results = []
+
+for weather in ["Temperature", "Precipitation"]:
+    arabica_complete = arabica_yearly[
+        [weather, "Arabica price"]
+    ].dropna()
+
+    robusta_complete = robusta_yearly[
+        [weather, "Robusta price"]
+    ].dropna()
+
+    results.append({
+        "Coffee price": "Arabica",
+        "Weather variable": weather,
+        "Countries": "Brazil, Colombia, Ethiopia, Indonesia, Vietnam",
+        "Years with complete data": len(arabica_complete),
+        "Correlation": arabica_complete[weather].corr(
+            arabica_complete["Arabica price"]
+        ),
+    })
+
+    results.append({
+        "Coffee price": "Robusta",
+        "Weather variable": weather,
+        "Countries": "Brazil, Indonesia, Vietnam",
+        "Years with complete data": len(robusta_complete),
+        "Correlation": robusta_complete[weather].corr(
+            robusta_complete["Robusta price"]
+        ),
+    })
+
+pd.DataFrame(results).to_csv(
+    "artifacts/weather_price_correlations.csv",
+    index=False,
+)
