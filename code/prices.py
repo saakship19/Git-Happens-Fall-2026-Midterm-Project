@@ -77,31 +77,15 @@ def build_price_files():
 		months=("month", "nunique"),
 	)
 
-	yearly = monthly.groupby("year", as_index=False).agg(
-		arabica_cents_lb=("arabica_cents_lb", "mean"),
-		robusta_cents_lb=("robusta_cents_lb", "mean"),
-		months=("month", "nunique"),
-	)
-
 	yearly = yearly[yearly["months"] == 12].drop(columns="months")
-	yearly["arabica_pct_change"] = (
-		yearly["arabica_cents_lb"].pct_change() * 100
-	)
 
 	yearly[
-		["year","arabica_cents_lb", "arabica_pct_change"]
+		["year","arabica_cents_lb"]
 	].to_csv(ARABICA_CLEAN_FILE, index=False)
 
 	yearly[
 		["year", "robusta_cents_lb"]
 	].to_csv(ROBUSTA_CLEAN_FILE, index=False)
-	yearly["arabica_pct_change"] = (
-		yearly["arabica_cents_lb"].pct_change() * 100
-	)
-
-	yearly[
-		["year", "arabica_cents_lb", "arabica_pct_change"]
-	].to_csv(ARABICA_CLEAN_FILE, index=False)
 
 	yearly.to_csv(YEARLY_FILE, index=False)
 
