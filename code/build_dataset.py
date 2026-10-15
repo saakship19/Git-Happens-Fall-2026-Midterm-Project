@@ -15,3 +15,20 @@ END_YEAR = 2024
 
 COUNTRY_PATH = os.path.join(CLEAN_DIR, "coffee_by_country.csv")
 YEAR_PATH = os.path.join(CLEAN_DIR, "coffee_by_year.csv")
+
+def load_prices():
+
+    """Combine the two price (Arabica and Robusta) files into one table.
+    Input: none.
+    Output: a table of yearly Arabica and Robusta prices.
+    """
+    
+    arabica = pd.read_csv(ARABICA_PRICE_PATH, encoding="utf-8-sig")
+    robusta = pd.read_csv(ROBUSTA_PRICE_PATH, encoding="utf-8-sig")
+
+    prices = arabica.merge(robusta, on="year")
+    prices = prices.rename(columns={"year": "Year"})
+    prices = prices.sort_values("Year")
+    
+    return prices
+
