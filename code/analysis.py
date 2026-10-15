@@ -371,71 +371,28 @@ plt.savefig(
 plt.close()
 
 
-# Arabica production and Arabica prices
-arabica_production_standardized[
-    ["Arabica production", "Arabica price"]
-].plot(
-    figsize=(10, 6),
-    color=["forestgreen", "navy"],
-    xlabel="Year",
-    ylabel="Standard deviations from 2000–2024 mean",
-    title="Arabica production and prices, 2000–2024",
-)
 
-plt.axhline(0, color="gray", linewidth=0.8)
-plt.tight_layout()
-plt.savefig(
-    "artifacts/arabica_production_price.png",
-    bbox_inches="tight",
-)
-plt.close()
-
-
-# Robusta production and Robusta prices
-robusta_production_standardized[
-    ["Robusta production", "Robusta price"]
-].plot(
-    figsize=(10, 6),
-    color=["forestgreen", "navy"],
-    xlabel="Year",
-    ylabel="Standard deviations from 2000–2024 mean",
-    title="Robusta production and prices, 2000–2024",
-)
-
-plt.axhline(0, color="gray", linewidth=0.8)
-plt.tight_layout()
-plt.savefig(
-    "artifacts/robusta_production_price.png",
-    bbox_inches="tight",
-)
-plt.close()
-
-
-
-# Correlations between weather, prices, and coffee production
+# Correlations between weather and coffee production
 
 production_results = []
 
-for coffee_type, yearly, production, price, countries in [
+for coffee_type, yearly, production, countries in [
     (
         "Arabica",
         arabica_production,
         "Arabica production",
-        "Arabica price",
         "Brazil, Colombia, Ethiopia, Indonesia, Vietnam",
     ),
     (
         "Robusta",
         robusta_production,
         "Robusta production",
-        "Robusta price",
         "Brazil, Indonesia, Vietnam",
     ),
 ]:
     for variable1, variable2 in [
         ("Temperature", production),
         ("Precipitation", production),
-        (production, price),
     ]:
         complete = yearly[[variable1, variable2]].dropna()
 
