@@ -62,8 +62,6 @@ def load_weather():
     normal_rain = rain_by_country.transform("mean")
     normal_temp = temp_by_country.transform("mean")
 
-    weather["Precipitation_Anomaly"] = weather["Average_Precipitation"] - normal_rain
-    weather["Temperature_Anomaly"] = weather["Annual_Average_Temperature"] - normal_temp
     return weather
 
 
