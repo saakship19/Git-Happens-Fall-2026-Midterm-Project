@@ -33,3 +33,18 @@ print("Missing values:")
 print(arabica.isna().sum())
 
 arabica.to_csv("data/clean/production_arabica_clean.csv", index=False)
+
+#Robusta production
+robusta = df[df["Attribute_Description"] == "Robusta Production"]
+
+countries = ["Brazil", "Vietnam", "Colombia", "Indonesia", "Ethiopia"]
+robusta = robusta[robusta["Country_Name"].isin(countries)]
+
+robusta = robusta[
+	(robusta["Market_Year"] >= 2000) &
+	(robusta["Market_Year"] <= 2024)
+]
+
+print(robusta["Country_Name"].unique())
+print("Robusta rows:", len(robusta))
+print(robusta[["Country_Name", "Market_Year", "Value"]])
