@@ -85,5 +85,14 @@ def load_production():
     return production[after_start & before_end]
 
 
+def make_country_table(production, weather):
+    """Join production and weather.
+	Input: the production and weather tables.
+    Output: one row per country per year.
+    """
+    by_country = production.merge(weather, on=["Country", "Year"], how="inner")
+    by_country = by_country.sort_values(["Country", "Year"])
+    return by_country
 
+    
 
