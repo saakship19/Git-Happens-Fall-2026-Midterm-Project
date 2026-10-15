@@ -1,7 +1,5 @@
 Coffee type,Variable 1,Variable 2,Countries,Years with complete data,Correlation
 Arabica,Temperature,Arabica production,"Brazil, Colombia, Ethiopia, Indonesia, Vietnam",25,0.6680941691507848
 Arabica,Precipitation,Arabica production,"Brazil, Colombia, Ethiopia, Indonesia, Vietnam",25,-0.015236337874795646
-Arabica,Arabica production,Arabica price,"Brazil, Colombia, Ethiopia, Indonesia, Vietnam",25,0.4927676515089349
 Robusta,Temperature,Robusta production,"Brazil, Indonesia, Vietnam",25,0.5457350764187081
 Robusta,Precipitation,Robusta production,"Brazil, Indonesia, Vietnam",25,-0.051558138556170446
-Robusta,Robusta production,Robusta price,"Brazil, Indonesia, Vietnam",25,0.6817903222665652

@@ -35,7 +35,7 @@ For our analysis, we first looked at how prices move with both temperature and p
 
 ### Correlation Tables
 [Weather and Coffee Price Correlations](artifacts/weather_price_correlations.csv)
-[Weather, Production, and Price Correlations](artifacts/production_correlations.csv)
+[Weather and Production Correlations](artifacts/production_correlations.csv)
 
 ## Limitations and Future Extensions  
 Our analysis had multiple limitations. First, the data we collected only accounted for the years 2000-2024, providing 25 annual observations per country. This limited our ability to examine longer-term climate trends, but we restricted the period to keep the project manageable. An extension of this project would ideally include as many years as the data would allow (all relevant data is available for a given year).  
@@ -52,7 +52,7 @@ All data cleaning and analysis for this project are performed using Python. The 
 
 ### Step 1: Clone the Repository  
 ```bash
-git clone https\://github.com/saakship19/Git-Happens-Fall-2026-Midterm-Project.git  
+git clone https://github.com/saakship19/Git-Happens-Fall-2026-Midterm-Project.git  
 cd Git-Happens-Fall-2026-Midterm-Project
 ```
 
@@ -112,10 +112,10 @@ data/clean/coffee_combined.csv
 python code/analysis.py
 ```
 
-This script produces 14 graphs and two correlation tables in the artifacts/ directory:  
+This script produces 12 graphs and two correlation tables in the artifacts/ directory:  
 artifacts/weather\_price\_correlations.csv  
 artifacts/production\_correlations.csv  
-14 PNG graphs comparing weather, coffee production, and prices.  
+12 PNG graphs comparing weather, coffee production, and prices.  
 Running these scripts in order should reproduce the cleaned datasets and analysis outputs using the included raw data. 
 
 ## Repository Structure
