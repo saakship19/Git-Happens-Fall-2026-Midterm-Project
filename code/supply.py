@@ -51,3 +51,15 @@ print(robusta["Country_Name"].unique())
 print("Robusta rows:", len(robusta))
 print(robusta[["Country_Name", "Market_Year", "Value"]])
 
+robusta = robusta[["Country_Name", "Market_Year", "Value"]]
+print(robusta.head())
+print("Total Robusta rows:", len(robusta))
+
+robusta.columns = ["Country", "Year", "Robusta_Production"]
+print(robusta.head())
+
+print("Duplicate rows:", robusta.duplicated(subset=["Country", "Year"]).sum())
+print("Missing values:")
+print(robusta.isna().sum())
+
+robusta.to_csv("data/clean/production_robusta_clean.csv", index=False)
