@@ -55,13 +55,8 @@ def load_weather():
 
     after_start = weather["Year"] >= START_YEAR
     before_end = weather["Year"] <= END_YEAR
-    weather = weather[after_start & before_end].copy()
-
-    rain_by_country = weather.groupby("Country")["Average_Precipitation"]
-    temp_by_country = weather.groupby("Country")["Annual_Average_Temperature"]
-    normal_rain = rain_by_country.transform("mean")
-    normal_temp = temp_by_country.transform("mean")
-
+    weather = weather[after_start & before_end]
+    
     return weather
 
 
