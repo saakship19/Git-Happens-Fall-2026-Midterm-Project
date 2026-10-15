@@ -56,3 +56,44 @@ arabica_standardized = (
 robusta_standardized = (
     robusta_yearly - robusta_yearly.mean()
 ) / robusta_yearly.std()
+
+# Temperature and Arabica price
+
+arabica_standardized[
+    ["Temperature", "Arabica price"]
+].plot(
+    figsize=(10, 6),
+    color=["darkorange", "navy"],
+    xlabel="Year",
+    ylabel="Standard deviations from 2000–2024 mean",
+    title="Growing-region temperature and Arabica price, 2000–2024",
+)
+
+plt.axhline(0, color="gray", linewidth=0.8)
+plt.tight_layout()
+plt.savefig(
+    "artifacts/temperature_arabica_price.png",
+    bbox_inches="tight",
+)
+plt.close()
+
+
+# Temperature and Robusta price
+
+robusta_standardized[
+    ["Temperature", "Robusta price"]
+].plot(
+    figsize=(10, 6),
+    color=["darkorange", "navy"],
+    xlabel="Year",
+    ylabel="Standard deviations from 2000–2024 mean",
+    title="Growing-region temperature and Robusta price, 2000–2024",
+)
+
+plt.axhline(0, color="gray", linewidth=0.8)
+plt.tight_layout()
+plt.savefig(
+    "artifacts/temperature_robusta_price.png",
+    bbox_inches="tight",
+)
+plt.close()
