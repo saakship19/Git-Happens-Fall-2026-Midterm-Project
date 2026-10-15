@@ -108,4 +108,3 @@ def build_price_files():
 if __name__ == "__main__":
 	build_price_files()
 
-
