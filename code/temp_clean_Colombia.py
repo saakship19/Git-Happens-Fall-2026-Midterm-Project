@@ -9,7 +9,7 @@ drop_columns = df.loc[:, "1901-01":"1999-12"].columns
 df_cleaned = df.drop (columns = drop_columns)
 
 #Keep only the regions I want 
-coffee_producing_regions = df_cleaned["name"].isin(["Caldas", "Quindio", "Risaralda", "Huila", "Cauca", "Narino"])
+coffee_producing_regions = df_cleaned["name"].isin(["Caldas", "Quindio", "Risaralda", "Huila", "Cauca", "Nariño"])
 df_cleaned = df_cleaned[coffee_producing_regions]
 
 # Creating columns to re-arrange data 
